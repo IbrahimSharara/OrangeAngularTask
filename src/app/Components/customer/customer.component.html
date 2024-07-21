@@ -1,0 +1,50 @@
+<div class="table-responsive">
+  <table class="table table-primary">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Service</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        class=""
+        *ngFor="
+          let item of customers.customers
+            | paginate
+              : {
+                  itemsPerPage: pageSize,
+                  currentPage: pageNumber,
+                  totalItems: TotalItems
+                };
+          let x = index
+        "
+      >
+        <td scope="row">{{ x + 1 }}</td>
+        <td scope="row">{{ item.name }}</td>
+        <td scope="row">{{ item.email }}</td>
+        <td scope="row">{{ item.phoneNumber }}</td>
+        <td scope="row">{{ item.service }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="row m-auto">
+  <pagination-controls
+    class="col-9"
+    (pageChange)="getData((PAGES = $event))"
+  ></pagination-controls>
+  <select
+    class="col-1 btn btn-primary"
+    (change)="changePagesize()"
+    [(ngModel)]="pageSize"
+  >
+    <option [value]="20">20</option>
+    <option [value]="30">30</option>
+    <option [value]="100">100</option>
+    <option [value]="500">500</option>
+  </select>
+</div>
